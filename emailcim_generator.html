@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./favicon3.png" />
+    <title>Email Cím Generátor</title>
+</head>
+<body>
+
+<form id="emailForm">
+    <label for="nev">Teljes név:</label>
+    <input type="text" id="nev" name="nev" required>
+
+    <label for="szuletesiEv">Születési év:</label>
+    <input type="number" id="szuletesiEv" name="szuletesiEv" min="1900" max="2023">
+
+    <button type="button" onclick="generaltEmail()">Generálás</button>
+</form>
+
+<p id="eredmeny"></p>
+
+<script>
+    function emailCimetGeneral(teljesNev, szuletesiEv = 1970) {
+        const nevek = teljesNev.split(' ');
+        const reszletek = nevek.map(nev => nev.slice(0, 3).toLowerCase());
+        const evUtolszamjegy = szuletesiEv !== '' ? szuletesiEv.toString().slice(-1) : '0';
+        return reszletek.join('') + evUtolszamjegy + '@duck.com';
+    }
+
+    function generaltEmail() {
+        const nev = document.getElementById('nev').value;
+        const szuletesiEv = document.getElementById('szuletesiEv').value;
+        const emailCim = emailCimetGeneral(nev, szuletesiEv);
+
+        
+        document.getElementById('eredmeny').innerText = 'Generált E-mail cím: ' + emailCim;
+    }
+</script>
+
+</body>
+</html>
